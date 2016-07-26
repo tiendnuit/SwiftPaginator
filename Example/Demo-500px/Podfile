@@ -1,0 +1,12 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '8.0'
+use_frameworks!
+
+target 'Demo-500px' do
+    pod 'Alamofire', '~> 2.0.0'
+    pod 'MBProgressHUD', '~> 0.9.1'
+    pod 'ObjectMapper', '~> 0.17'
+    pod 'ReactiveCocoa', '~> 4.0.2-alpha-3'
+    pod 'SDWebImage', '~>3.7'
+end
+
