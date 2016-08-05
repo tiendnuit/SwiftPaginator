@@ -11,7 +11,6 @@
 		C014D1901C7B477200091510 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C014D18F1C7B477200091510 /* AppDelegate.swift */; };
 		C014D1951C7B477200091510 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C014D1931C7B477200091510 /* Main.storyboard */; };
 		C014D1971C7B477200091510 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C014D1961C7B477200091510 /* Assets.xcassets */; };
-		C014D19A1C7B477200091510 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C014D1981C7B477200091510 /* LaunchScreen.storyboard */; };
 		C014D1A91C7B533B00091510 /* AbstractObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C014D1A81C7B533B00091510 /* AbstractObject.swift */; };
 		C014D1AC1C7B53D900091510 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C014D1AB1C7B53D900091510 /* Utils.swift */; };
 		C014D1B51C7B656B00091510 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C014D1B41C7B656B00091510 /* APIRouter.swift */; };
@@ -32,6 +31,7 @@
 		C067BB4A1C7B85BC00A52672 /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C067BB491C7B85BC00A52672 /* DeviceHelper.swift */; };
 		C068888A1C7D66670076C4DE /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06888891C7D66670076C4DE /* PhotoDetailViewController.swift */; };
 		C068888D1C7D79240076C4DE /* UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068888C1C7D79240076C4DE /* UIImage+Crop.swift */; };
+		C06CD37C1D5078D900DCB193 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C06CD37A1D5078D900DCB193 /* LaunchScreen.storyboard */; };
 		C0A157001C8E76DA00FDE73F /* SwiftPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A156FF1C8E76DA00FDE73F /* SwiftPaginator.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,7 +43,6 @@
 		C014D18F1C7B477200091510 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C014D1941C7B477200091510 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C014D1961C7B477200091510 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C014D1991C7B477200091510 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C014D19B1C7B477200091510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C014D1A81C7B533B00091510 /* AbstractObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractObject.swift; sourceTree = "<group>"; };
 		C014D1AB1C7B53D900091510 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -66,6 +65,7 @@
 		C067BB491C7B85BC00A52672 /* DeviceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
 		C06888891C7D66670076C4DE /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		C068888C1C7D79240076C4DE /* UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Crop.swift"; sourceTree = "<group>"; };
+		C06CD37B1D5078D900DCB193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0A156FF1C8E76DA00FDE73F /* SwiftPaginator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPaginator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,8 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				C014D1931C7B477200091510 /* Main.storyboard */,
+				C06CD37A1D5078D900DCB193 /* LaunchScreen.storyboard */,
 				C014D1961C7B477200091510 /* Assets.xcassets */,
-				C014D1981C7B477200091510 /* LaunchScreen.storyboard */,
 				C014D19B1C7B477200091510 /* Info.plist */,
 				C05CAB041C7CA6370023F450 /* Demo-500px-Bridging-Header.h */,
 			);
@@ -291,7 +291,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C014D19A1C7B477200091510 /* LaunchScreen.storyboard in Resources */,
+				C06CD37C1D5078D900DCB193 /* LaunchScreen.storyboard in Resources */,
 				C014D1971C7B477200091510 /* Assets.xcassets in Resources */,
 				C014D1951C7B477200091510 /* Main.storyboard in Resources */,
 			);
@@ -388,10 +388,10 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		C014D1981C7B477200091510 /* LaunchScreen.storyboard */ = {
+		C06CD37A1D5078D900DCB193 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C014D1991C7B477200091510 /* Base */,
+				C06CD37B1D5078D900DCB193 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -487,12 +487,14 @@
 			baseConfigurationReference = 95042EAE4027D1FBF5014DF7 /* Pods-Demo-500px.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "Demo-500px/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tiendnuit.demo.Demo-500px";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.binumi-ios.binumi-ios-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo-500px/Demo-500px-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -501,12 +503,14 @@
 			baseConfigurationReference = 0172DB20925DC9E3C0966FFF /* Pods-Demo-500px.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "Demo-500px/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tiendnuit.demo.Demo-500px";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.binumi-ios.binumi-ios-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo-500px/Demo-500px-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

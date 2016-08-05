@@ -35,6 +35,9 @@ class PhotosViewController: BaseViewController {
     var refreshControl:UIRefreshControl = UIRefreshControl()
     var paginator:PhotosPaginator = PhotosPaginator(size: Constants.APIConstants.kAPIResultsPerPage)
     var cateName:String?
+    var category:CategoryObject!
+    
+    @IBOutlet weak var imvBackground: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +55,10 @@ class PhotosViewController: BaseViewController {
 
         paginator.category = cateName
         fetchFirstPage()
+        
+        if let photo = category.defaultPhoto, imageObj = photo.imageObject(PhotoSizeType.Standard) as ImageObject?, url = imageObj.url{
+            imvBackground.sd_setImageWithURL(NSURL(string: url))
+        }
     }
     
     // MARK: - Paginator methods

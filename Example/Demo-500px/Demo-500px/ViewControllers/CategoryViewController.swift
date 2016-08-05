@@ -21,6 +21,8 @@ class CategoryCollectionViewCell: UICollectionViewCell{
         
         self.layer.borderColor = UIColor.grayColor().CGColor
         self.layer.borderWidth = 1
+        imvCategory.setIndicatorStyle(UIActivityIndicatorViewStyle.White)
+        imvCategory.setShowActivityIndicatorView(true)
     }
     
 }
@@ -83,6 +85,7 @@ extension CategoryViewController:UICollectionViewDataSource, UICollectionViewDel
         
         let photosVC = mainStoryboard().instantiateViewControllerWithIdentifier("PhotosVC") as! PhotosViewController
         photosVC.cateName = category.categoryName
+        photosVC.category = category
         self.navigationController!.pushViewController(photosVC, animated: true)
         
     }

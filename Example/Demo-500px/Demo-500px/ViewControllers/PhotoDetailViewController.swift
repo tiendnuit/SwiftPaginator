@@ -17,8 +17,6 @@ class PhotoDetailCollectionViewCell:UICollectionViewCell, UIScrollViewDelegate {
     
     @IBOutlet weak var vwScrollview: UIScrollView!
     @IBOutlet weak var imvPhoto: UIImageView!
-    @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var imvAvatar: UIImageView!
     @IBOutlet weak var lbUsername: UILabel!
@@ -27,19 +25,23 @@ class PhotoDetailCollectionViewCell:UICollectionViewCell, UIScrollViewDelegate {
     @IBOutlet weak var lbCommentCount: UILabel!
     @IBOutlet weak var vwBottom: UIView!
     var timer:NSTimer?
+//    
+    @IBOutlet weak var imageTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageLeadingConstraint: NSLayoutConstraint!
     
     var photoObj:PhotoObject?{
         didSet{
             //update image
             imvPhoto.image = nil
+            updateZoomScale(imvPhoto.bounds.size)
             showInfo(true)
-            zoomImage(1)
+
             if let imageObj = photoObj!.imageObject(PhotoSizeType.Standard) as ImageObject?, image = imageObj.image{
                 imvPhoto.image = image
-//                imageWidthConstraint.constant = image.size.width
-//                imageHeightConstraint.constant = image.size.height
-                imageWidthConstraint.constant = ScreenSize.SCREEN_WIDTH
-                imageHeightConstraint.constant = ScreenSize.SCREEN_WIDTH*image.size.height/image.size.width
+
+                updateZoomScale(image.size)
             }else if let imageObj = photoObj!.imageObject(PhotoSizeType.Standard) as ImageObject?, url = imageObj.url{
                 let manager:SDWebImageDownloader = SDWebImageDownloader.sharedDownloader()
                 manager.downloadImageWithURL(NSURL(string: url), options: SDWebImageDownloaderOptions.HighPriority, progress: nil, completed: {[weak self] (aa:UIImage!, data:NSData?, _, finished:Bool) -> Void in
@@ -48,9 +50,8 @@ class PhotoDetailCollectionViewCell:UICollectionViewCell, UIScrollViewDelegate {
                             if let data = data, image = UIImage(data: data) {
                                 imageObj.image = image//.resizeImage(ScreenSize.SCREEN_WIDTH)
                                 self?.imvPhoto.image = imageObj.image
-                                
-                                self?.imageWidthConstraint.constant = ScreenSize.SCREEN_WIDTH
-                                self?.imageHeightConstraint.constant = ScreenSize.SCREEN_WIDTH*image.size.height/image.size.width
+
+                                self?.updateZoomScale(imageObj.image!.size)
                             }
                         })
                     }
@@ -71,6 +72,12 @@ class PhotoDetailCollectionViewCell:UICollectionViewCell, UIScrollViewDelegate {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateZoomScale(imvPhoto.bounds.size)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         //avatar
@@ -82,12 +89,9 @@ class PhotoDetailCollectionViewCell:UICollectionViewCell, UIScrollViewDelegate {
         imvPhoto.setIndicatorStyle(UIActivityIndicatorViewStyle.White)
         imvPhoto.setShowActivityIndicatorView(true)
         
-        let pinch = UIPinchGestureRecognizer(target: self, action: "pinch:")
-        imvPhoto.gestureRecognizers = [pinch]
-        imvPhoto.userInteractionEnabled = true
         vwScrollview.delegate = self
         
-        let tap = UITapGestureRecognizer(target: self, action: "tapOnView:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(PhotoDetailCollectionViewCell.tapOnView(_:)))
         self.addGestureRecognizer(tap)
     }
     
@@ -106,7 +110,7 @@ class PhotoDetailCollectionViewCell:UICollectionViewCell, UIScrollViewDelegate {
             self.vwBottom.alpha = alpha
             }, completion: { (finished) -> Void in
                 if show {
-                    self.timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "hideInfo", userInfo: nil, repeats: false)
+                    self.timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(PhotoDetailCollectionViewCell.hideInfo), userInfo: nil, repeats: false)
                 }
         })
     }
@@ -115,33 +119,44 @@ class PhotoDetailCollectionViewCell:UICollectionViewCell, UIScrollViewDelegate {
         showInfo(false)
     }
     
-    func pinch(gesture:UIPinchGestureRecognizer) {
-        if gesture.state == UIGestureRecognizerState.Ended || gesture.state == UIGestureRecognizerState.Changed{
-            let currentScale = self.frame.size.width / self.bounds.size.width
-            let newScale = currentScale*gesture.scale
+    func updateZoomScale(size:CGSize){
+        if imvPhoto.image == nil {
+            vwScrollview.minimumZoomScale = 1
+            vwScrollview.zoomScale = 1
+        }else{
+            let widthScale = ScreenSize.SCREEN_WIDTH / size.width
+            let heightScale = ScreenSize.SCREEN_HEIGHT / size.height
+            let minScale = min(widthScale, heightScale)
             
-            zoomImage(newScale)
+            vwScrollview.minimumZoomScale = minScale
+            vwScrollview.zoomScale = minScale
         }
+        
+        updateLayoutConstraints()
     }
     
-    func zoomImage(scale:CGFloat){
-        var newScale = scale
-        if newScale < MINIMUM_SCALE {
-            newScale = MINIMUM_SCALE
-        }
+    func updateLayoutConstraints(){
+        let yOffset = max(0, (ScreenSize.SCREEN_HEIGHT - imvPhoto.frame.height) / 2)
+        imageTopConstraint.constant = yOffset
+        imageBottomConstraint.constant = yOffset
         
-        if newScale > MAXIMUM_SCALE {
-            newScale = MAXIMUM_SCALE
-        }
+        let xOffset = max(0, (ScreenSize.SCREEN_WIDTH - imvPhoto.frame.width) / 2)
+        imageLeadingConstraint.constant = xOffset
+        imageTrailingConstraint.constant = xOffset
         
-        let transform = CGAffineTransformMakeScale(newScale, newScale)
-        imvPhoto.transform = transform
-        vwScrollview.contentSize = imvPhoto.frame.size
+        layoutIfNeeded()
     }
     
     //MARK: UIScrollViewDelegate
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imvPhoto
+    }
+    
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        //vwScrollview.contentSize = imvPhoto.frame.size
+        //layoutIfNeeded()
+        //setNeedsDisplay()
+        updateLayoutConstraints()
     }
 }
 
@@ -159,7 +174,7 @@ class PhotoDetailViewController: UIViewController {
         
         vwPhotosCollectionView.alpha = 0.0
         vwPhotosCollectionView.reloadData()
-        self.performSelector("showCollectionView", withObject: nil, afterDelay: 0.1)
+        self.performSelector(#selector(PhotoDetailViewController.showCollectionView), withObject: nil, afterDelay: 0.1)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -216,17 +231,6 @@ extension PhotoDetailViewController : UICollectionViewDataSource, UICollectionVi
     func collectionView(collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//            var numOfCol:CGFloat = 2
-//            if IS_IPAD() {
-//                numOfCol = 4
-//            }
-//            
-//            let photo = arrPhotos[indexPath.row]
-//            if let imageObj = photo.imageObject(PhotoSizeType.Standard) as ImageObject?, image = imageObj.image{
-//                return image.size
-//            }
-            
-            //let width = (ScreenSize.SCREEN_WIDTH - (numOfCol+1)*10)/numOfCol
             let frame = collectionView.frame
             return CGSize(width: frame.size.width, height: frame.size.height)
     }
